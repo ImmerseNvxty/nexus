@@ -1,0 +1,231 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design Tokens ───────────────────────────────────── */
+:root {
+  --font-sora: 'Sora', sans-serif;
+  --font-dm: 'DM Sans', sans-serif;
+
+  /* Ocean palette */
+  --ocean-900: #04101f;
+  --ocean-800: #071a3a;
+  --ocean-700: #0a2a5c;
+  --ocean-600: #0d4080;
+  --ocean-500: #1560aa;
+  --ocean-400: #2580cc;
+  --ocean-300: #4fa3e8;
+  --ocean-200: #7ec8f5;
+  --ocean-100: #b8d8f8;
+  --ocean-50:  #e8f4ff;
+
+  /* Glass surfaces */
+  --glass:        rgba(255, 255, 255, 0.06);
+  --glass-hover:  rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-strong: rgba(10, 25, 50, 0.80);
+
+  /* Accent colors */
+  --accent:       #5bc4f5;
+  --accent-glow:  rgba(91, 196, 245, 0.25);
+  --gold:         #f5c842;
+  --gold-glow:    rgba(245, 200, 66, 0.25);
+  --green:        #5de8a0;
+  --coral:        #f5756a;
+  --purple:       #c084fc;
+
+  /* Text */
+  --text-1: #e8f4ff;
+  --text-2: #a8cce8;
+  --text-3: #6a9ab8;
+}
+
+/* ── Base Styles ─────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ocean-900);
+  color: var(--text-1);
+  font-family: var(--font-dm);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ── Glass Card ──────────────────────────────────────── */
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border backdrop-blur-xl relative overflow-hidden;
+    background: var(--glass-strong);
+    border-color: var(--glass-border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    pointer-events: none;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(91, 196, 245, 0.2);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(91,196,245,0.08), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Input base */
+  .island-input {
+    @apply w-full rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-200;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-1);
+    font-family: var(--font-dm);
+  }
+  .island-input:focus {
+    border-color: rgba(91,196,245,0.5);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 0 0 3px rgba(91,196,245,0.12);
+  }
+  .island-input::placeholder { color: var(--text-3); }
+
+  /* Button variants */
+  .btn-primary {
+    @apply rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer;
+    background: linear-gradient(135deg, var(--ocean-300), var(--accent));
+    color: #041020;
+    border: none;
+    font-family: var(--font-sora);
+    box-shadow: 0 0 16px var(--accent-glow);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 24px rgba(91,196,245,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-ghost {
+    @apply rounded-xl px-4 py-2 text-sm transition-all duration-200 cursor-pointer;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text-2);
+    font-family: var(--font-dm);
+  }
+  .btn-ghost:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-1);
+  }
+
+  /* Card title */
+  .card-label {
+    @apply flex items-center gap-2 text-xs font-semibold uppercase tracking-widest mb-3;
+    color: var(--text-3);
+    font-family: var(--font-sora);
+  }
+
+  /* Badge */
+  .badge {
+    @apply rounded-md px-2 py-0.5 text-xs font-semibold;
+    font-family: var(--font-sora);
+  }
+  .badge-red    { background: rgba(245,117,106,0.15); color: #f5756a; }
+  .badge-blue   { background: rgba(91,196,245,0.12);  color: #5bc4f5; }
+  .badge-green  { background: rgba(93,232,160,0.12);  color: #5de8a0; }
+  .badge-gold   { background: rgba(245,200,66,0.15);  color: #f5c842; }
+  .badge-purple { background: rgba(192,132,252,0.12); color: #c084fc; }
+}
+
+/* ── Ocean Background ────────────────────────────────── */
+.ocean-bg {
+  position: fixed; inset: 0;
+  background: linear-gradient(180deg, #04101f 0%, #0a1628 50%, #0d2240 100%);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ocean-surface {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent 0%, rgba(10,32,64,0.8) 50%, #051020 100%);
+}
+
+.ocean-shimmer {
+  position: absolute;
+  bottom: 40%;
+  left: -50%; right: -50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(91,196,245,0.5), transparent);
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+/* ── Island Float ─────────────────────────────────────── */
+.island-float { animation: float 6s ease-in-out infinite; }
+
+/* ── Tiptap Editor ────────────────────────────────────── */
+.ProseMirror {
+  outline: none;
+  min-height: 300px;
+  color: var(--text-1);
+  font-family: var(--font-dm);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.ProseMirror p { margin-bottom: 0.75rem; }
+.ProseMirror h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-1); font-family: var(--font-sora); }
+.ProseMirror h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--ocean-200); font-family: var(--font-sora); }
+.ProseMirror h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent); font-family: var(--font-sora); }
+.ProseMirror ul, .ProseMirror ol { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+.ProseMirror li { margin-bottom: 0.25rem; }
+.ProseMirror blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; color: var(--text-2); font-style: italic; margin: 1rem 0; }
+.ProseMirror code { background: rgba(91,196,245,0.1); border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.875em; color: var(--accent); }
+.ProseMirror pre { background: rgba(0,0,0,0.4); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; overflow-x: auto; }
+.ProseMirror pre code { background: none; padding: 0; }
+.ProseMirror mark { background: rgba(245,200,66,0.3); border-radius: 2px; padding: 0.1em 0.2em; color: var(--text-1); }
+.ProseMirror img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--text-3);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+.ProseMirror ul[data-type="taskList"] { list-style: none; margin-left: 0; }
+.ProseMirror ul[data-type="taskList"] li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.ProseMirror ul[data-type="taskList"] li input[type="checkbox"] { margin-top: 0.2rem; accent-color: var(--accent); }
+
+/* ── Calendar overrides ───────────────────────────────── */
+.rbc-calendar {
+  background: transparent !important;
+  color: var(--text-1) !important;
+  font-family: var(--font-dm) !important;
+}
+.rbc-header { background: rgba(255,255,255,0.04) !important; border-color: var(--glass-border) !important; color: var(--text-2) !important; padding: 8px !important; font-family: var(--font-sora) !important; font-size: 11px !important; text-transform: uppercase !important; letter-spacing: 0.06em !important; }
+.rbc-day-bg { border-color: var(--glass-border) !important; }
+.rbc-today { background: rgba(91,196,245,0.06) !important; }
+.rbc-off-range-bg { background: rgba(0,0,0,0.2) !important; }
+.rbc-event { border-radius: 6px !important; border: none !important; font-size: 11px !important; font-family: var(--font-sora) !important; }
+.rbc-toolbar { margin-bottom: 12px !important; }
+.rbc-toolbar button { color: var(--text-2) !important; background: var(--glass) !important; border: 1px solid var(--glass-border) !important; border-radius: 8px !important; padding: 4px 12px !important; font-family: var(--font-sora) !important; font-size: 11px !important; transition: all 0.2s !important; }
+.rbc-toolbar button:hover { background: var(--glass-hover) !important; color: var(--text-1) !important; }
+.rbc-toolbar button.rbc-active { background: var(--accent-glow) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+.rbc-toolbar-label { font-family: var(--font-sora) !important; font-size: 15px !important; font-weight: 600 !important; color: var(--text-1) !important; }
+.rbc-time-view { border-color: var(--glass-border) !important; }
+.rbc-time-content { border-color: var(--glass-border) !important; }
+.rbc-timeslot-group { border-color: var(--glass-border) !important; }
+.rbc-time-slot { color: var(--text-3) !important; font-size: 10px !important; font-family: var(--font-sora) !important; }
+.rbc-current-time-indicator { background: var(--accent) !important; }
+.rbc-date-cell { color: var(--text-2) !important; font-family: var(--font-sora) !important; font-size: 12px !important; }
+
+/* ── Page transition ──────────────────────────────────── */
+.page-enter { animation: slideUp 0.3s ease-out; }
