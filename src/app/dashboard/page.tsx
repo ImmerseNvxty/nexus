@@ -35,8 +35,8 @@ export default async function DashboardPage() {
   ])
 
   // Weekly study hours
-  const weeklyStudyMin = (focusSessions ?? []).reduce((acc, s) => acc + (s.duration_min ?? 0), 0)
-  const weeklyXP = (xpLog ?? []).reduce((acc, x) => acc + (x.amount ?? 0), 0)
+ const weeklyStudyMin = (focusSessions ?? []).reduce((acc: number, s: any) => acc + (s.duration_min ?? 0), 0)
+ const weeklyXP = (xpLog ?? []).reduce((acc: number, x: any) => acc + (x.amount ?? 0), 0)
 
   return (
     <DashboardClient
